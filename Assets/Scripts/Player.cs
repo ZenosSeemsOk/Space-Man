@@ -77,15 +77,15 @@ public class Player : MonoBehaviour
             IslandSelection island = hitObject.GetComponent<IslandSelection>();
             // You can now interact with the hit object
             // Example: Check if it's a specific tag
-            if (island.value == 1)
+            island.value = 1;
+            if (island.islandID == 1)
             {
                 Debug.Log("Correct Island");
             }
-            else if (island.value == 2)
+            else
             {
                 Debug.Log("Incorrect Island");
             }
-
             // Check if the object has the PingPongMovement script and disable it
             IslandMove islandMove = hitObject.GetComponent<IslandMove>();
             if (islandMove != null)
