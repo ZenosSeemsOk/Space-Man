@@ -1,4 +1,5 @@
 using UnityEngine;
+using System;
 
 public class Player : MonoBehaviour
 {
@@ -7,10 +8,12 @@ public class Player : MonoBehaviour
     public float moveSpeed = 5f; // Speed of movement
     private Rigidbody2D rb;
     private int currentPathIndex = 0;
+    public bool checkGameOver;
     private bool isMoving = false;
     private bool canInteract = true; // Controls whether the player can interact with sprites
     public bool hasTakenOff;
     public bool isGliding;
+    public bool isLanding;
 
     private void Start()
     {
@@ -23,12 +26,13 @@ public class Player : MonoBehaviour
             rb.bodyType = RigidbodyType2D.Dynamic;
         }
         // Initially, the player is not moving
+        checkGameOver = true;
         isMoving = false;
         canInteract = true;
     }
 
     public void StartMoving()
-    {  
+    {
         // Only allow movement if the player is on the ground and not already moving
         if (canInteract && IsOnGround() && paths.Length > 0 && rb.bodyType == RigidbodyType2D.Dynamic)
         {
@@ -36,40 +40,36 @@ public class Player : MonoBehaviour
             EnableKinematicRigidbody(); // Switch to kinematic while moving
             isMoving = true;
             canInteract = false; // Disable further interactions until movement is complete
+            hasTakenOff = true; // Trigger takeoff animation
         }
         else
         {
             Debug.Log("Cannot move: Either not on ground or already moving.");
         }
-        
     }
 
     public void MoveToPaths(Transform[] newPaths)
     {
         if (canInteract && newPaths != null && newPaths.Length > 0)
         {
-            hasTakenOff = true;
+            hasTakenOff = true; // Trigger takeoff animation
             paths = newPaths;
 
             // Only allow setting paths if the player is on the ground and not already moving
             if (IsOnGround())
             {
-                isGliding = false;
                 currentPathIndex = 0;
                 EnableKinematicRigidbody(); // Switch to kinematic when paths are set
                 isMoving = true;
                 canInteract = false; // Disable further interactions until movement is complete
             }
-            else if(!IsOnGround()) 
+            else if (!IsOnGround())
             {
-
-                isGliding = true;
                 Debug.Log("Cannot set paths: Player is not on the ground.");
             }
         }
         else
         {
-            hasTakenOff = false;
             Debug.Log("Cannot interact: Player is already moving.");
         }
     }
@@ -78,6 +78,7 @@ public class Player : MonoBehaviour
     {
         if (isMoving && paths.Length > 0)
         {
+            isGliding = true; // Enable gliding animation
             Transform target = paths[currentPathIndex];
             transform.position = Vector3.MoveTowards(transform.position, target.position, moveSpeed * Time.deltaTime);
 
@@ -86,10 +87,19 @@ public class Player : MonoBehaviour
                 currentPathIndex++;
                 if (currentPathIndex >= paths.Length)
                 {
+                    // Movement complete
+                    isGliding = false; // Disable gliding animation
+                    isLanding = false; // Reset landing state
                     isMoving = false;
-                    canInteract = true; // Allow interactions again after completing movement
-                    EnableDynamicRigidbody(); // Switch back to dynamic after movement
+                    canInteract = true; // Allow interactions again
+                    EnableDynamicRigidbody(); // Switch back to dynamic
                     GroundDetection();
+                }
+                else if (currentPathIndex == paths.Length - 1)
+                {
+                    // Trigger landing animation
+                    isGliding = false; // Disable gliding animation
+                    isLanding = true; // Enable landing animation
                 }
             }
         }
@@ -116,6 +126,7 @@ public class Player : MonoBehaviour
                 else
                 {
                     Debug.Log("Incorrect Island");
+                    checkGameOver = false;
                 }
             }
 
@@ -135,7 +146,7 @@ public class Player : MonoBehaviour
 
     public bool IsOnGround()
     {
-        RaycastHit2D hit = Physics2D.Raycast(groundDetector.position, Vector2.down, 2f);
+        RaycastHit2D hit = Physics2D.Raycast(groundDetector.position, Vector2.down, 0.5f);
         return hit.collider != null && hit.collider.CompareTag("Ground");
     }
 
