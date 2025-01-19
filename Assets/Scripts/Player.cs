@@ -9,6 +9,8 @@ public class Player : MonoBehaviour
     private int currentPathIndex = 0;
     private bool isMoving = false;
     private bool canInteract = true; // Controls whether the player can interact with sprites
+    public bool hasTakenOff;
+    public bool isGliding;
 
     private void Start()
     {
@@ -26,7 +28,7 @@ public class Player : MonoBehaviour
     }
 
     public void StartMoving()
-    {
+    {  
         // Only allow movement if the player is on the ground and not already moving
         if (canInteract && IsOnGround() && paths.Length > 0 && rb.bodyType == RigidbodyType2D.Dynamic)
         {
@@ -39,29 +41,35 @@ public class Player : MonoBehaviour
         {
             Debug.Log("Cannot move: Either not on ground or already moving.");
         }
+        
     }
 
     public void MoveToPaths(Transform[] newPaths)
     {
         if (canInteract && newPaths != null && newPaths.Length > 0)
         {
+            hasTakenOff = true;
             paths = newPaths;
 
             // Only allow setting paths if the player is on the ground and not already moving
             if (IsOnGround())
             {
+                isGliding = false;
                 currentPathIndex = 0;
                 EnableKinematicRigidbody(); // Switch to kinematic when paths are set
                 isMoving = true;
                 canInteract = false; // Disable further interactions until movement is complete
             }
-            else
+            else if(!IsOnGround()) 
             {
+
+                isGliding = true;
                 Debug.Log("Cannot set paths: Player is not on the ground.");
             }
         }
         else
         {
+            hasTakenOff = false;
             Debug.Log("Cannot interact: Player is already moving.");
         }
     }
@@ -125,7 +133,7 @@ public class Player : MonoBehaviour
         }
     }
 
-    private bool IsOnGround()
+    public bool IsOnGround()
     {
         RaycastHit2D hit = Physics2D.Raycast(groundDetector.position, Vector2.down, 2f);
         return hit.collider != null && hit.collider.CompareTag("Ground");
