@@ -1,5 +1,6 @@
 using UnityEngine;
 using System;
+using Unity.VisualScripting;
 
 public class Player : MonoBehaviour
 {
@@ -165,4 +166,13 @@ public class Player : MonoBehaviour
             rb.bodyType = RigidbodyType2D.Kinematic;
         }
     }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Destroyer"))
+        {
+            Destroy(gameObject);
+        }
+    }
+
 }
