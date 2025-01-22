@@ -12,7 +12,6 @@ public class IslandSelection : MonoBehaviour
     public int value;
     private IslandMove move;
 
-
     private void Start()
     {
         collider = GetComponent<BoxCollider2D>();
@@ -45,7 +44,8 @@ public class IslandSelection : MonoBehaviour
 
     private void GameOver()
     {
-
         collider.enabled = player.checkGameOver;
     }
+
+    
 }
