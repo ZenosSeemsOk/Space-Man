@@ -10,18 +10,24 @@ public class IslandSelection : MonoBehaviour
     private new BoxCollider2D collider; // Use 'new' keyword to hide inherited member
     public int islandID;
     public int value;
+    public int islandNumberValue;
     private IslandMove move;
+    PauseMenu pauseMenu;
+    SettingsMenu settingsMenu;
+    public SpriteRenderer spriteRenderer;
 
     private void Start()
     {
         collider = GetComponent<BoxCollider2D>();
         move = GetComponent<IslandMove>();
+        pauseMenu = PauseMenu.instance;
+        settingsMenu = SettingsMenu.instance;
     }
 
     private void OnMouseDown()
     {
         // Tell the player to move to this object's paths
-        if (player != null)
+        if (player != null && !pauseMenu.isPaused && !settingsMenu.isPaused)
         {
             player.MoveToPaths(paths);
         }
@@ -37,7 +43,6 @@ public class IslandSelection : MonoBehaviour
             {
                 move.enabled = false;
                 //Debug.Log("The other island is selected");
-
             }
         }
     }

@@ -99,7 +99,6 @@ GameObject:
   - component: {fileID: 3611936304744614359}
   - component: {fileID: 8004766455219037231}
   - component: {fileID: 2503787761545753925}
-  - component: {fileID: 5947435916673066408}
   m_Layer: 0
   m_Name: Correct
   m_TagString: Ground
@@ -204,19 +203,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   islandMoveSpeed: 3
   moveRange: 1
---- !u!114 &5947435916673066408
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4533884054072903956}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 16ab86a8030a99c459dca450df2e4282, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  islandSelection: {fileID: 8004766455219037231}
 --- !u!1 &5552464191277530897
 GameObject:
   m_ObjectHideFlags: 0
