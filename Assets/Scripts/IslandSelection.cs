@@ -4,10 +4,10 @@ using UnityEngine;
 
 public class IslandSelection : MonoBehaviour
 {
-    public Transform[] paths; // Paths for this clickable object
-    public Player player; // Reference to the Player script
+    public Transform[] paths;
+    public Player player;
     public GameObject otherIsland;
-    private new BoxCollider2D collider; // Use 'new' keyword to hide inherited member
+    private new BoxCollider2D collider;
     public int islandID;
     public int value;
     public int islandNumberValue;
@@ -22,6 +22,8 @@ public class IslandSelection : MonoBehaviour
         move = GetComponent<IslandMove>();
         pauseMenu = PauseMenu.instance;
         settingsMenu = SettingsMenu.instance;
+
+        RandomizeIslandPosition();
     }
 
     private void OnMouseDown()
@@ -52,5 +54,8 @@ public class IslandSelection : MonoBehaviour
         collider.enabled = player.checkGameOver;
     }
 
-    
+    private void RandomizeIslandPosition()
+    {
+      
+    }
 }

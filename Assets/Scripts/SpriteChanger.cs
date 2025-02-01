@@ -55,7 +55,51 @@ public class SpriteChanger : MonoBehaviour
                     island.spriteRenderer.sprite = sprites[9];
                     Debug.Log($"Sprite changed for {island.islandID}");
                     break;
-                default:
+                case 10:
+                    island.spriteRenderer.sprite = sprites[10];
+                    Debug.Log($"Sprite changed for {island.islandID}");
+                    break;
+                case 11:
+                    island.spriteRenderer.sprite = sprites[11];
+                    Debug.Log($"Sprite changed for {island.islandID}");
+                    break;
+                case 12:
+                    island.spriteRenderer.sprite = sprites[12];
+                    Debug.Log($"Sprite changed for {island.islandID}");
+                    break;
+                case 13:
+                    island.spriteRenderer.sprite = sprites[13];
+                    Debug.Log($"Sprite changed for {island.islandID}");
+                    break;
+                case 14:
+                    island.spriteRenderer.sprite = sprites[14];
+                    Debug.Log($"Sprite changed for {island.islandID}");
+                    break;
+                case 15:
+                    island.spriteRenderer.sprite = sprites[15];
+                    Debug.Log($"Sprite changed for {island.islandID}");
+                    break;
+                case 16:
+                    island.spriteRenderer.sprite = sprites[16];
+                    Debug.Log($"Sprite changed for {island.islandID}");
+                    break;
+                case 17:
+                    island.spriteRenderer.sprite = sprites[17];
+                    Debug.Log($"Sprite changed for {island.islandID}");
+                    break;
+                case 18:
+                    island.spriteRenderer.sprite = sprites[18];
+                    Debug.Log($"Sprite changed for {island.islandID}");
+                    break;
+                case 19:
+                    island.spriteRenderer.sprite = sprites[19];
+                    Debug.Log($"Sprite changed for {island.islandID}");
+                    break;
+                case 20:
+                    island.spriteRenderer.sprite = sprites[20];
+                    Debug.Log($"Sprite changed for {island.islandID}");
+                    break;
+            default:
                     island.spriteRenderer.sprite = sprites[4];
                     Debug.Log($"Sprite changed for {island.islandID}");
                     break;

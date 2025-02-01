@@ -5,72 +5,61 @@ public class SceneManagement : MonoBehaviour
     public int totalUnlockedLevel;
     public static SceneManagement Instance { get; private set; }
     public IslandSelection[] islands;
+
     private void Awake()
+    {
+        ManageSingleton();
+
+        InitializeIslandValues();
+    }
+
+    private void ManageSingleton()
     {
         if (Instance == null)
         {
             Instance = this;
+            DontDestroyOnLoad(gameObject);
         }
-        else
+        else if (Instance != this)
         {
-            Destroy(Instance);
-        }
-        DontDestroyOnLoad(Instance);
-
-        if (totalUnlockedLevel == 1)
-        {
-            islands[0].islandNumberValue = 4;
-            islands[1].islandNumberValue = 3;
-            islands[2].islandNumberValue = 2;
-            islands[3].islandNumberValue = 1;
-
-            islands[4].islandNumberValue = 7;
-            islands[5].islandNumberValue = 9;
-            islands[6].islandNumberValue = 5;
-            islands[7].islandNumberValue = 8;
-
-            Debug.Log(islands[0].islandNumberValue + islands[1].islandNumberValue);
-        }
-        else if (totalUnlockedLevel == 2)
-        {
-            islands[0].islandNumberValue = 8;
-            islands[1].islandNumberValue = 7;
-            islands[2].islandNumberValue = 6;
-            islands[3].islandNumberValue = 5;
-
-            islands[4].islandNumberValue = 2;
-            islands[5].islandNumberValue = 4;
-            islands[6].islandNumberValue = 5;
-            islands[7].islandNumberValue = 8;
-        }
-        else if (totalUnlockedLevel == 3)
-        {
-            islands[0].islandNumberValue = 4;
-            islands[1].islandNumberValue = 3;
-            islands[2].islandNumberValue = 2;
-            islands[3].islandNumberValue = 1;
-
-            islands[4].islandNumberValue = 7;
-            islands[5].islandNumberValue = 9;
-            islands[6].islandNumberValue = 5;
-            islands[7].islandNumberValue = 8;
-        }
-        else
-        {
-            Debug.Log("Level index exceeds boundary");
+            Destroy(gameObject);
         }
     }
 
-    private void Start()
+    private void InitializeIslandValues()
     {
-
+        switch (totalUnlockedLevel)
+        {
+            case 1:
+                SetIslandValues(new int[] { 4, 3, 2, 1, 7, 9, 5, 8 });
+                break;
+            case 2:
+                SetIslandValues(new int[] { 8, 7, 6, 5, 2, 4, 5, 8 });
+                break;
+            case 3:
+                SetIslandValues(new int[] { 12, 11, 10, 9, 7, 9, 5, 8 });
+                break;
+            case 4:
+                SetIslandValues(new int[] { 17, 16, 15, 14, 7, 9, 5, 8 });
+                break;
+            default:
+                Debug.LogError("Level index exceeds boundary");
+                break;
+        }
     }
 
-    private void ChangeSprite()
+    private void SetIslandValues(int[] values)
     {
-
+        for (int i = 0; i < islands.Length; i++)
+        {
+            if (i < values.Length)
+            {
+                islands[i].islandNumberValue = values[i];
+            }
+            else
+            {
+                Debug.LogError("Island index out of range of provided values");
+            }
+        }
     }
-
-
-
 }

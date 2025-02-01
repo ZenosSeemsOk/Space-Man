@@ -983,6 +983,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2503787761545753925, guid: 14ce0aadb5b4bdb4da168715356076a9, type: 3}
+      propertyPath: moveRange
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 4533884054072903956, guid: 14ce0aadb5b4bdb4da168715356076a9, type: 3}
       propertyPath: m_Name
       value: Incorrecto_2
@@ -1857,6 +1861,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2503787761545753925, guid: 14ce0aadb5b4bdb4da168715356076a9, type: 3}
+      propertyPath: moveRange
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 4533884054072903956, guid: 14ce0aadb5b4bdb4da168715356076a9, type: 3}
       propertyPath: m_Name
       value: Incorrecto_4
@@ -1932,6 +1940,10 @@ PrefabInstance:
     - target: {fileID: 952837896813266637, guid: 0aff900c377ced84fb629e57f4473bbb, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2503787761545753925, guid: 0aff900c377ced84fb629e57f4473bbb, type: 3}
+      propertyPath: moveRange
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 4533884054072903956, guid: 0aff900c377ced84fb629e57f4473bbb, type: 3}
       propertyPath: m_Name
@@ -2947,7 +2959,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c778c68cc5d17044f8f95f4dfe2cbc9b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  totalUnlockedLevel: 2
+  totalUnlockedLevel: 1
   islands:
   - {fileID: 1326603186}
   - {fileID: 2038674145}
@@ -3029,6 +3041,10 @@ PrefabInstance:
     - target: {fileID: 952837896813266637, guid: 0aff900c377ced84fb629e57f4473bbb, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2503787761545753925, guid: 0aff900c377ced84fb629e57f4473bbb, type: 3}
+      propertyPath: moveRange
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 4533884054072903956, guid: 0aff900c377ced84fb629e57f4473bbb, type: 3}
       propertyPath: m_Name
