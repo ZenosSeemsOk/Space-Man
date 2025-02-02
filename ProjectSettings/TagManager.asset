@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Ground
   - Destroyer
+  - SpaceShip
   layers:
   - Default
   - TransparentFX

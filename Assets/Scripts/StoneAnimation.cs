@@ -6,15 +6,22 @@ public class StoneAnimation : MonoBehaviour
     [SerializeField] private Player player;
     private const string STONEBREAK = "StoneBreak";
 
-    private void Start()
+    private void Awake()
     {
         anim = GetComponent<Animator>();
+        anim.enabled = false;
     }
+
     private void Update()
     {
         if (anim != null)
         {
-            anim.SetBool(STONEBREAK, !player.checkGameOver);
+            if(!player.checkGameOver)
+            {
+                anim.enabled = true;
+                anim.SetBool(STONEBREAK, !player.checkGameOver);
+            }
+
         }
     }
 }

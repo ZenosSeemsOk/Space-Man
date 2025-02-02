@@ -10,6 +10,7 @@ public class Player : MonoBehaviour
     private Rigidbody2D rb;
     private int currentPathIndex = 0;
     public bool checkGameOver;
+    public bool checkGameCompletion;
     private bool isMoving = false;
     private bool canInteract = true; // Controls whether the player can interact with sprites
     public bool hasTakenOff;
@@ -27,6 +28,7 @@ public class Player : MonoBehaviour
             rb.bodyType = RigidbodyType2D.Dynamic;
         }
         // Initially, the player is not moving
+        checkGameCompletion = false;
         checkGameOver = true;
         isMoving = false;
         canInteract = true;
@@ -169,8 +171,16 @@ public class Player : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.CompareTag("Destroyer"))
+        if (collision.CompareTag("Destroyer") && !checkGameOver)
         {
+            Destroy(gameObject);
+        }
+
+        if(collision.CompareTag("SpaceShip"))
+        {
+
+            collision.GetComponent<Animator>().SetBool("gameOver", true);
+            checkGameCompletion = true;
             Destroy(gameObject);
         }
     }

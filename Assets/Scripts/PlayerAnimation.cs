@@ -10,7 +10,7 @@ public class PlayerAnimation : MonoBehaviour
     private const string LANDING = "isLanding";
     private const string GLIDING = "isGliding";
     private const string FALLING = "GameOver";
-
+    private const string BLAST = "gameEnd";
     private bool wasGliding = false; // To track state changes
     private bool wasLanding = false;
 
@@ -56,6 +56,12 @@ public class PlayerAnimation : MonoBehaviour
         else if (!player.checkGameOver)
         {
             animator.SetBool(FALLING, true);
+        }
+
+        // Handle Blast animation
+        if(!player.checkGameOver)
+        {
+            animator.SetBool(BLAST, true);
         }
     }
 }

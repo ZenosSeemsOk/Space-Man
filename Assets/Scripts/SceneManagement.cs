@@ -1,16 +1,33 @@
 using UnityEngine;
+using System.Collections;
+using UnityEngine.SceneManagement;
 
 public class SceneManagement : MonoBehaviour
 {
-    public int totalUnlockedLevel;
+    public int currentLevelIndex;
+    [SerializeField] private GameObject victoryCard;
+    [SerializeField] private GameObject failCard;
+    [SerializeField] private Player player;
     public static SceneManagement Instance { get; private set; }
     public IslandSelection[] islands;
+    private LevelSelection level;
 
     private void Awake()
     {
         ManageSingleton();
+    }
 
+    private void Start()
+    {
+        Time.timeScale = 1;
+        level = LevelSelection.instance;
+        currentLevelIndex = level.levelIndex;
+    }
+
+    private void Update()
+    {
         InitializeIslandValues();
+        ShowCards();
     }
 
     private void ManageSingleton()
@@ -28,7 +45,7 @@ public class SceneManagement : MonoBehaviour
 
     private void InitializeIslandValues()
     {
-        switch (totalUnlockedLevel)
+        switch (currentLevelIndex)
         {
             case 1:
                 SetIslandValues(new int[] { 4, 3, 2, 1, 7, 9, 5, 8 });
@@ -61,5 +78,48 @@ public class SceneManagement : MonoBehaviour
                 Debug.LogError("Island index out of range of provided values");
             }
         }
+    }
+
+    private void ShowCards()
+    {
+        if (!player.checkGameOver)
+        {
+            StartCoroutine(ShowFailCard());
+        }
+        else if (player.checkGameCompletion)
+        {
+            StartCoroutine(ShowVictoryCard());
+        }
+    }
+
+    private IEnumerator ShowFailCard()
+    {
+        yield return new WaitForSeconds(1.5f);
+        Time.timeScale = 0;
+        failCard.SetActive(true);
+    }
+
+    private IEnumerator ShowVictoryCard()
+    {
+        yield return new WaitForSeconds(1.5f);
+        Time.timeScale = 0;
+        victoryCard.SetActive(true);
+    }
+
+    public void Restart()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
+
+    public void Home()
+    {
+        SceneManager.LoadScene("LevelSelect");
+    }
+
+    public void Next()
+    {
+        level.levelIndex += 1;
+        level.totalLevelUnlocked += 1;
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 }
